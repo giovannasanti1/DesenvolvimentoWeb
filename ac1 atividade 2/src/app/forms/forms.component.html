@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Calculadora de IMC</h2>
+    <form [formGroup]= "imcForm" (ngSubmit)="calculateIMC()">
+        <div class="form-group">
+            <label for="peso">Peso (kg)</label>
+            <input type="number" class="form-control" formControlName="peso" id="peso" required>
+            <div *ngIf="imcForm.get('peso').invalid && (imcForm.get('peso').dirty || imcForm.get('peso').touched)">
+              <div *ngIf="imcForm.get('peso').errors['required']">Peso é obrigatório.</div>
+              <div *ngIf="imcForm.get('peso').errors['min']">Peso deve ser maior ou igual a 1 kg.</div>
+              <div *ngIf="imcForm.get('peso').errors['max']">Peso deve ser menor ou igual a 500 kg.</div>
+            </div>
+      </div>
+      <div class="form-group">
+        <label for="altura">Altura (m)</label>
+  <input type="number" class="form-control" formControlName="altura" id="altura" required>
+  <div *ngIf="imcForm.get('altura').invalid && (imcForm.get('altura').dirty || imcForm.get('altura').touched)">
+    <div *ngIf="imcForm.get('altura').errors['required']">Altura é obrigatória.</div>
+    <div *ngIf="imcForm.get('altura').errors['min']">Altura deve ser maior ou igual a 0,01 m.</div>
+    <div *ngIf="imcForm.get('altura').errors['max']">Altura deve ser menor ou igual a 3 m.</div>
+  </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!imcForm.valid">Calcular IMC</button>
+    </form>
+    <div *ngIf="imcForm.valid">
+        <p>Seu IMC é: {{imcResultado.toFixed(2)}}</p>
+        <p>Sua classificação é: {{classificacao}}</p>
+      </div>
+
